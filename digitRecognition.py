@@ -10,9 +10,8 @@ from keras.layers.convolutional import MaxPooling2D
 
 
 from keras.utils import np_utils
-
-
-# from keras.utils import np_utils
+from keras import backend as K
+K.set_image_dim_ordering('th')
 
 # load data
 (X_train, y_train), (X_test, y_test) = mnist.load_data()

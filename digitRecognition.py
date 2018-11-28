@@ -6,3 +6,6 @@ from keras.datasets import mnist
 # reshape to be [samples][pixels][width][height]
 X_train = X_train.reshape(X_train.shape[0], 1, 28, 28).astype('float32')
 X_test = X_test.reshape(X_test.shape[0], 1, 28, 28).astype('float32')
+
+# def base_model():
+    # create model

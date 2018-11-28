@@ -10,6 +10,8 @@ from keras.layers.convolutional import MaxPooling2D
 
 
 from keras.utils import np_utils
+
+# convolutional neural network (cnn)
 from keras import backend as K
 K.set_image_dim_ordering('th')
 
@@ -19,7 +21,11 @@ K.set_image_dim_ordering('th')
 X_train = X_train.reshape(X_train.shape[0], 1, 28, 28).astype('float32')
 X_test = X_test.reshape(X_test.shape[0], 1, 28, 28).astype('float32')
 
-# one hot encode outputs
+# normalize inputs from 0-255 to 0-1
+X_train = X_train / 255
+X_test = X_test / 255
+
+# one hot encode output variables
 y_train = np_utils.to_categorical(y_train)
 y_test = np_utils.to_categorical(y_test)
 num_classes = y_test.shape[1]
@@ -33,9 +39,6 @@ def base_model():
     model.add(Flatten())
     model.add(Dense(128, activation='relu'))
     model.add(Dense(num_classes, activation='softmax'))
-    # Compile model
-    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-	# Compile model
 
     # compile
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])

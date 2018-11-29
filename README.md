@@ -1,5 +1,5 @@
 # emerging-tech-project
-Emerging technology project
+![jupyter](https://user-images.githubusercontent.com/14262715/49247722-db8df300-f40f-11e8-9f3b-02d61645b9fa.png)
 
 ## Description
 This repository is intended for my Emerging Technology module.  It consists of four python notebooks and a python script which re related to a variety of topics related to neural networks

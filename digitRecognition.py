@@ -49,7 +49,7 @@ model = base_model()
 
 # Fit model
 # epoch = iteration over all data, batch size = no. of images at a time
-model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=2, batch_size=200, verbose=2)
+model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=10, batch_size=200, verbose=2)
 
 # eval
 scores = model.evaluate(X_test, y_test, verbose=0)

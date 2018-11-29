@@ -22,12 +22,13 @@ from keras.models import load_model
 
 # convolutional neural network (cnn)
 from keras import backend as K
+
 K.set_image_dim_ordering('th')
 
 if args.recognise:
     print("Selected rec")
-
-    print(args.recognise)
+    filename = args.recognise
+    print(filename)
 
 # option -t
 if args.train:
@@ -47,24 +48,20 @@ if args.train:
     y_test = np_utils.to_categorical(y_test)
     num_classes = y_test.shape[1]
 
+    def base_model():
+        # create model
+        model = Sequential()
+        model.add(Conv2D(32, (5, 5), input_shape=(1, 28, 28), activation='relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Dropout(0.2))
+        model.add(Flatten())
+        model.add(Dense(128, activation='relu'))
+        model.add(Dense(num_classes, activation='softmax'))
+        # compile
+        model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+        return model
+
     # train model
-    train_model()
-
-def base_model():
-    # create model
-    model = Sequential()
-    model.add(Conv2D(32, (5, 5), input_shape=(1, 28, 28), activation='relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.2))
-    model.add(Flatten())
-    model.add(Dense(128, activation='relu'))
-    model.add(Dense(num_classes, activation='softmax'))
-
-    # compile
-    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-    return model
-
-def train_model():
     # build model
     model = base_model()
 
@@ -78,3 +75,36 @@ def train_model():
     # eval
     scores = model.evaluate(X_test, y_test, verbose=0)
     print("CNN Error: %.2f%%" % (100-scores[1]*100))
+    # train_model()
+    # build model
+    model = base_model()
+
+    # Fit model
+    # epoch = iteration over all data, batch size = no. of images at a time
+    model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=10, batch_size=200, verbose=2)
+
+    # save model
+    model.save('model.h5')
+
+    # eval
+    scores = model.evaluate(X_test, y_test, verbose=0)
+    print("CNN Error: %.2f%%" % (100-scores[1]*100))
+
+
+
+    
+
+# def train_model():
+#     # build model
+#     model = base_model()
+
+#     # Fit model
+#     # epoch = iteration over all data, batch size = no. of images at a time
+#     model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=10, batch_size=200, verbose=2)
+
+#     # save model
+#     model.save('model.h5')
+
+#     # eval
+#     scores = model.evaluate(X_test, y_test, verbose=0)
+#     print("CNN Error: %.2f%%" % (100-scores[1]*100))

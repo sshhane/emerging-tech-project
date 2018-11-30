@@ -2,7 +2,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-t", "--train", help="Train a model on MNIST data",  action='store_true')
-parser.add_argument("-r", "--recognise", help="Recognise a given digit")
+parser.add_argument("-r", "--recognise", help="Enter image filename and predict digit")
 args = parser.parse_args()
 
 import numpy as np
@@ -13,10 +13,6 @@ from keras.layers import Dense
 from keras.layers import Dropout
 from keras.layers import Flatten
 
-# from keras.datasets import mnist
-# from keras.layers import Dense
-# from keras.models import Sequential
-# from keras.optimizers import SGD
 import matplotlib.pyplot as plt
 
 from keras.layers.convolutional import Conv2D
@@ -35,20 +31,19 @@ K.set_image_dim_ordering('th')
 
 if args.recognise:
     print("Selected rec")
+
     filename = args.recognise
 
-    img = image.load_img(path="mnist.png",color_mode = "grayscale",target_size=(28,28,1))
+    print(filename)
+
+    img = image.load_img(path=filename,color_mode = "grayscale",target_size=(28,28,1))
     img = image.img_to_array(img)
 
     test_img = img.reshape((1,784))
 
     test_img = np.expand_dims(img, axis=0)
 
-    print(filename)
-
     model = keras.models.load_model('model.h5')
-
-    # model.predict_classes()
 
     img_class = model.predict_classes(test_img)
     prediction = img_class[0]

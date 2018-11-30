@@ -30,30 +30,38 @@ from keras import backend as K
 K.set_image_dim_ordering('th')
 
 if args.recognise:
-    print("Selected rec")
+    print("Selected Recognise")
 
+    # get filemname argument
     filename = args.recognise
 
-    print(filename)
+    print("The file you chose is: " + filename)
 
+    # convert to grayscale and 28x28
     img = image.load_img(path=filename,color_mode = "grayscale",target_size=(28,28,1))
     img = image.img_to_array(img)
 
     test_img = img.reshape((1,784))
 
+    # add dimension to match with expected array
     test_img = np.expand_dims(img, axis=0)
 
+    # load model from h5 file
     model = keras.models.load_model('model.h5')
 
+    # predict the digit
     img_class = model.predict_classes(test_img)
+    # first index as there is only one image predicted
     prediction = img_class[0]
 
-    classname = img_class[0]
+    # classname = img_class[0]
 
-    print("Class: ",classname)
+    print("Class: ",prediction)
+
+    # display the processed image
     img = img.reshape((28,28))
     plt.imshow(img)
-    plt.title(classname)
+    plt.title(prediction)
     plt.show()
 
 # option -t

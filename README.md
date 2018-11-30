@@ -57,3 +57,24 @@ and...
 And finally to run the notebook navigate to where you have downloaded this repo and run:
 
 `jupyter notebook`
+
+
+## Running the Script
+The MNIST digit recognition script takes in different arguments when run.  It will either train a new model and save this new model as a .h5 file or it can be used to classify a given image.
+
+You can also run the script with the -h or --help argument to see what options are available
+
+`python digitRecognition.py -h`
+
+If you want to train a new model you need to run:
+
+`python digitRecognition.py -t`
+
+This will create and train a model off of the MNIST dataset.
+
+To run the script and predict a given digit drag over the digit image that you want to classify into the repo folder on your computer and run:
+
+`python digitRecognition.py -r [filename.png]`
+
+replacing 'filename.png' with the name of the image that you are testing with.
+

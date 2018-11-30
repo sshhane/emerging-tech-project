@@ -27,6 +27,7 @@ __pycache__
 \#*#
 .#*
 .coverage
+.ipynb_checkpoints
 src
 
 *.swp

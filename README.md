@@ -78,3 +78,5 @@ To run the script and predict a given digit drag over the digit image that you w
 
 replacing 'filename.png' with the name of the image that you are testing with.
 
+The test image is classified and the version that was scaled and greyscaled is displayed in another window
+
